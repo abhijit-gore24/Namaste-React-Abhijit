@@ -1,0 +1,58 @@
+VS Code is used EMMET - What is this is generate some code for you in VS code 
+If we write html:5 it generate the basic html for you 
+
+1. We see how we can create the basic hello world program using the html (created index.html file and in h1 tag added the text)
+2. Here we see how we can create the basic hello world program using the Javascript  (Checkout the solution in the index.html file)
+3. Now how we can create the basic hello world program using the React 
+4. To inject the react into our project we use the CDN react (CDN - Content delivery network)
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script> -> this will inject the react 
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script> ->this will inject the reactDom we use to modify the DOM
+
+After including this script tag then we have react inside our project now the browser will understand what is react.
+-Now we have injected the react if we go to the browser and inspect it and type the react we will see the lots of things we get. (children, component, etc)
+-If we write the ReactDOM in console you will see the different functions give by the react DOM.
+-console.warn("This heading is a react element and we can see in the console the react element will be printed",heading) 
+-if we print the heading we can see the react element and it has he props the props means 
+{
+    "id": "xyz",
+    "children": "Hello World form React!"
+}
+this that we have passed as a parameter there
+const heading = React.createElement("h1", {id:"xyz"}, "Hello World form React!");
+
+
+EX:The below structure we have created using the react 
+<div id = "parent">
+       <div id = "child">
+           <h1>I'm H1 Tag means heading tag</h1>
+        </div>
+ </div>
+
+ const parentElement = React.createElement(
+  "div",
+  { id: "parent" },
+  React.createElement(
+    "div",
+    { id: "child" },
+    React.createElement("h1", {}, "I am an h1 tag")
+  )
+);
+This is the structure 
+
+- And the ReactElement is basically is a object ReactElement(Object) = HTML (Browser understand)
+- The react element become the HTML that browser understand while rendering into the DOM it converts the react code into the DOM (EX: root.render(parentElement);)
+
+-const parentElement = React.createElement(
+  "div",
+  { id: "parent" },
+  React.createElement(
+    "div",
+    { id: "child" },
+    [
+      React.createElement("h1", {}, "I am an h1 tag"),
+      React.createElement("h2", {}, "I am an h2 tag"),
+    ] // if we want to add one more sibling to it then we need to add that in the array
+  )
+); 
+To avoid this complex structure we have JSX
+- JSX will make our life easy when we have to create the tags±
