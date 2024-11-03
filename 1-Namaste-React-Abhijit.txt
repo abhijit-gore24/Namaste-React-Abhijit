@@ -1,3 +1,4 @@
+Episode 1 :
 VS Code is used EMMET - What is this is generate some code for you in VS code 
 If we write html:5 it generate the basic html for you 
 
@@ -56,3 +57,77 @@ This is the structure
 ); 
 To avoid this complex structure we have JSX
 - JSX will make our life easy when we have to create the tags±
+
+
+Episode 2:
+-npm npm basically a package manager where all the package are there
+-Now to initialize the npm in our app then we need to do the (npm init)
+-It will generate the package.json file this is the basically a configuration for npm
+-Why we need this package.json the package we install is also knows as the dependencies npm manage that and it will manage that in the package.json file
+-npm install -D parcel we have install the parcel to bundle the packages as we can see the -D we have use there its a dev dependencies means it is required in the development env 
+-When we install the parcel then we will see the new files are added package-lock.json file and node_modules
+-What is difference between package.json and package-lock.json file package.json keeps track of version of packages that we install and package-lock.json keep track of exact version that is we install its will lock the exact version of the package that we install 
+-If we have package.json and package-lock.json then we can regenerate the node modules that is why we dont need to push the node_modules to the git 
+-We can recreate the node_modules using the command (npm install)
+-"parcel": "^2.12.0" as you can see the ^ this sige it will get the minor update and if we see § tild sign then it will take the major update
+-(npx parcel index.html) we ignite our app using this command.
+-What is npx just like npm we have npx. npx means executing our package whenever we have to execute our package we use the npx <package name>
+-After igniting the app the lots of things are happened
+-To inject the react into our app we use the CDN links there is another way to inject the react into our app is using npm using node package manager
+-The CDN links are not good way to initialize the react app.
+-Now to install the react into our app we have to use the command (npm install react) and we need to install the react DOM also (npm install react-dom)
+-If we check the package.json we will see the react and react-dom is installed properly 
+"dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+-Now we are getting an error its not able to find out from where the react is coming for because previosuly we use the CDN links now we are installing the packages 
+-So we need to import the react 
+-import React from "react"; we import the react so form where it is coming from its coming form node_module from react file so thats the meaning of import 
+-If we change something in code we will see that change in browser automatically we dont need to reload the page this happend because we use the parcel in our app
+
+# Parcel
+-Dev Build
+-Local Server
+-HMR = Hot Module Replacement
+-It Uses file watching algorithm - its written in C++
+-Caching = Faster Build 
+-Image Optimization
+-Minification 
+-Bundling
+-Compressing
+-Consistent Hashing
+-Code Splitting
+-Differential Bundling - supports older browsers
+-Diagnostic 
+-Error Handling 
+-Https
+-Tree Shaking - remove unused code
+-Different dev and prod bundles
+
+-If we want to do the prod build then we need to use the command like (npx parcel build index.html)
+As we hit this command then we get the error
+🚨 Build failed.
+
+@parcel/namer-default: Target "main" declares an output file path of "app.js" which 
+does not match the compiled bundle type "html".
+
+  /Users/abhijit/Desktop/Namaste-React/package.json:5:11
+    4 |   "description": "This is Namaste-React Abhijit",
+  > 5 |   "main": "app.js",
+  >   |           ^^^^^^^^ Did you mean "app.html"?
+    6 |   "scripts": {
+    7 |     "test": "Jest"
+
+  💡 Try changing the file extension of "main" in package.json.
+
+-so to resolve this error we need to remove the "main": "app.js", this from the package.json because its not the entry point of our application we have write there in cmd as index.html its not matching there 
+npx parcel build index.html
+✨ Built in 839ms
+dist/index.html                345 B    310ms
+dist/index.d8c12c77.css         85 B     31ms
+dist/index.268a7a54.js     139.24 KB    179ms
+
+-It will build the all dist file in the dist we will see it will compresseed everything and now our code is production ready it will minify our code  
+-We have brower list where we can add for which browser our app will support
+(https://browserslist.dev/?q=bGFzdCAyIHZlcnNpb25z) checkout this site

@@ -1,3 +1,6 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+
 // Here we write all our react code
 
 const heading = React.createElement(
@@ -29,7 +32,7 @@ const parentElement = React.createElement(
     "div",
     { id: "child" },
     [
-      React.createElement("h1", {}, "I am an h1 tag"),
+      React.createElement("h1", {id:"abc"}, "This is namaste react abhijit"),
       React.createElement("h2", {}, "I am an h2 tag"),
     ] // if we want to add one more sibling to it then we need to add that in the array
   )
