@@ -5,3 +5,14 @@ color: red;
     color:red
 }
 /* As we can see the id we use here to apply the css right the id that we have given in the app.js in the {id:xyz} */
+#xyz1 {
+   color: #cf2121;
+    background-color: aqua;
+}
+
+#tag{
+    color: blueviolet;
+}
+.functionComp{
+    color: red;
+}

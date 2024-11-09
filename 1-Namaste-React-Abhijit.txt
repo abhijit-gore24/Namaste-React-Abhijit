@@ -67,9 +67,9 @@ Episode 2:
 -npm install -D parcel we have install the parcel to bundle the packages as we can see the -D we have use there its a dev dependencies means it is required in the development env 
 -When we install the parcel then we will see the new files are added package-lock.json file and node_modules
 -What is difference between package.json and package-lock.json file package.json keeps track of version of packages that we install and package-lock.json keep track of exact version that is we install its will lock the exact version of the package that we install 
--If we have package.json and package-lock.json then we can regenerate the node modules that is why we dont need to push the node_modules to the git 
+-If we have package.json and package-lock.json then we can regenerate the node modules that is why we don't need to push the node_modules to the git 
 -We can recreate the node_modules using the command (npm install)
--"parcel": "^2.12.0" as you can see the ^ this sige it will get the minor update and if we see § tild sign then it will take the major update
+-"parcel": "^2.12.0" as you can see the ^ this sign it will get the minor update and if we see § tild sign then it will take the major update
 -(npx parcel index.html) we ignite our app using this command.
 -What is npx just like npm we have npx. npx means executing our package whenever we have to execute our package we use the npx <package name>
 -After igniting the app the lots of things are happened
@@ -129,5 +129,106 @@ dist/index.d8c12c77.css         85 B     31ms
 dist/index.268a7a54.js     139.24 KB    179ms
 
 -It will build the all dist file in the dist we will see it will compresseed everything and now our code is production ready it will minify our code  
--We have brower list where we can add for which browser our app will support
+-We have browser list where we can add for which browser our app will support
 (https://browserslist.dev/?q=bGFzdCAyIHZlcnNpb25z) checkout this site
+
+
+Episode 3:
+we can create a script to build our production ready app then we need to write the script there in the package.json
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "Jest"
+  }
+  This script is used to create a dev build 
+  -Lets create a script for building a production
+   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+    "test": "Jest"
+  }
+  -this script is used to build the production app
+  -Now we have created the script now we don't need to write the (npx parcel index.html) to build our app.
+  -Suppose if we got to the company and you don't know how to build the application then go to the package.json file and you will find the scripts there and you will see the command to run the code
+  -Now to run the application so what command we need to hit 
+   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+    "test": "Jest"
+  }
+-To run the application we need to use the command (npm run start) and if you hit the enter it will do the same things that our run cmd do 
+npm run start
+> namaste-react@1.0.0 start
+> parcel index.html
+Server running at http://localhost:1234
+✨ Built in 514ms
+
+-As you can see our application is running we just need so see the package.json and look for the script and check what is written in the start section and hit (npm run <script>) your application will run successfully.
+or you can do the (npm start) also it will start the application it will same as the (npm run start)
+-I have created the new app1.js file 
+-JSX React = const jsxHeading = <h1 id="tag">This is h1 tag using JSX 🚀</h1>; // This is not HTML this is JSX. JSX is different than HTML its HTML like syntax
+const root = ReactDOM.createRoot(document.getElementById("root2"))
+root.render(jsxHeading)
+-As you can see the h1 tag we have written that is JSX
+-JSX React (transpiled before it reaches the JS engine) - this is done by parcel - parcel will do this work form the babel as we save the code babel will convert the code into the react code (react understandable code).
+-JSX => React.createElement => ReactElement.JS Object => HTMLElement(render)
+-This is how the code will work in background
+-If we want to give the class name in the JSX the we need to give like this => className="head"
+-If we want to write the multiple lines the babel code then we need to write it into the () parenthesis
+EX: const jsxHeading = (
+  <h1 className="head" id="tag">
+    This is h1 tag using JSX 🚀
+  </h1>
+); 
+-React components = are the building blocks of the react application.
+-There are two types of components in react 
+1.Class Based Components - Old way of writing react components
+2.Functional Components - New way of writing react components
+
+-React Functional Components
+EX:
+//Functional components
+const FunctionalComponent = () => {
+    return <h1>Namaste Guys React Functional Component</h1>
+};
+-This is the react functional component with return the JSX code
+-We will use the functional component all across the places
+-To render the functional component we need to use the 
+root.render(<FunctionalComponent/>); method
+-<FunctionalComponent/> like this we need to add to render the functional component
+-How we can write the JavaScript code inside the Function component
+EX:const FunctionalComponent = () => (
+    <div id="container">
+        <h2>{100 + 200}</h2> // Using the {} these curly braces we can write the javascript code in the function component
+        <h1>THIS IS FUNCETIONAL COMP</h1>
+    <h1 className="functionComp">Namaste Guys React Functional Component</h1>
+  </div>
+);
+-This is how we can write the Javascript in the functional component
+-How we can render the component inside the component =>
+EX:const Title = () => (
+    <h2>This is how we can render the data in the functional comp using</h2>
+);
+
+const FunctionalComponent = () => (
+  <div id="container">
+    <Title /> // Here we render the component inside the component
+    <h2>{}</h2> // Using the {} these curly braces we can write the
+    javascript code in the function component
+    <h1>THIS IS FUNCETIONAL COMP</h1>
+    <h1 className="functionComp">Namaste Guys React Functional Component</h1>
+  </div>
+);
+
+-Lets see the example how we can render the text or something in the functional component with example 
+-<> ... </> is a React Fragment. It allows you to group multiple elements without adding an extra node to the DOM.
+-If we are getting the data form the API like 
+EX: const data = api.getData();
+-Then we can use the {} these curly braces to render the data in the functional component
+EX: const FunctionalComponent = () => (
+  <div id="container">
+    <Title /> // Here we render the component inside the component
+    <h2>{data}</h2> // Using the {} these curly braces we can write the
+    javascript code in the function component
+)
+-If attacker get access to run some JavaScript code in your browser what we can do this type of attack is knows as cross-site scripting (XSS)
+-But JSX is so amazing it wil take care of this type of attack it prevent cross-site scripting (XSS) for you 

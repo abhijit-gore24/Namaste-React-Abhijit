@@ -6,7 +6,7 @@ import ReactDOM from "react-dom/client";
 const heading = React.createElement(
   "h1",
   { id: "xyz" },
-  "Hello World form React!"
+  "Hello World form React! This is react heading"
 ); // This createElement basically takes the 3 parameter first the tag, object in that object we will give the attribute and third is what we have to put in that tag
 
 
@@ -32,8 +32,8 @@ const parentElement = React.createElement(
     "div",
     { id: "child" },
     [
-      React.createElement("h1", {id:"abc"}, "This is namaste react abhijit"),
-      React.createElement("h2", {}, "I am an h2 tag"),
+      React.createElement("h1", {id:"xyz1"}, "This is namaste react By Abhijit gore And its App.js"),
+      React.createElement("h2", {id:"tag"}, "This is Another tag here app.js"),
     ] // if we want to add one more sibling to it then we need to add that in the array
   )
 ); // here we have created the html structure
@@ -44,4 +44,4 @@ console.warn(
   parentElement
 );
 const root = ReactDOM.createRoot(document.getElementById("root1"));
-root.render(parentElement);
+root.render(heading);
