@@ -232,3 +232,211 @@ EX: const FunctionalComponent = () => (
 )
 -If attacker get access to run some JavaScript code in your browser what we can do this type of attack is knows as cross-site scripting (XSS)
 -But JSX is so amazing it wil take care of this type of attack it prevent cross-site scripting (XSS) for you 
+
+
+Episode 4 :
+-Here we are building the food ordering app in React
+-So what component my app have 
+1.Header
+-Logo
+-Nav Icon
+2.Body
+-Search Bar
+-RestaurantsContainer
+3.RestaurantCard
+-Image
+-Name
+-Cuisine
+-Rating
+-Order Now
+4.Footer
+-Copyright
+-Contact Us
+-links
+-Address
+-So in our project we have created the cards and we have hard coded it and created the multiple copies 
+EX: const RestaurantCard = () => {
+  return (
+    <div className="res-card">
+      <img
+        className="res-img"
+        src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      ></img>
+      <h3 className="res-name">Kakke Da Paratha</h3>
+      <h4>Biryani, North Indian, Asian</h4>
+      <div className="details">
+        <div className="rating">4.4</div>
+        <div className="delivery-time">38 Min</div>
+      </div>
+    </div>
+  );
+}
+-const Body = () => {
+  return (
+    <div className="body">
+      <div className="search">Search</div>
+      <div className="resto-container">
+        <RestaurantCard />
+        <RestaurantCard /> <RestaurantCard /> <RestaurantCard />{" "}
+        <RestaurantCard /> <RestaurantCard /> <RestaurantCard />{" "}
+        <RestaurantCard />
+        <RestaurantCard /> <RestaurantCard /> <RestaurantCard />{" "}
+        <RestaurantCard /> <RestaurantCard /> <RestaurantCard />{" "}
+        <RestaurantCard />
+      </div>
+    </div>
+  );
+};
+This is how we have displayed here and now we want this card is dynamic means we have to show the different data to the each card so how we can do that we can do that using the concept called as props it is a short form for the properties (properties is something which we can pass to the component)
+-So what is the props the props is argument to the functional component if we want to dynamically pass the data to the functional component then we can do that using the props
+EX:
+const RestaurantCard = ({
+  resName,
+  cuisine,
+  rating,
+  deliveryTime,
+  imageUrl,
+}) => {
+  return (
+    <div className="res-card">
+      <img className="res-img" src={imageUrl}></img>
+      <h3 className="res-name">{resName}</h3>
+      <h4>{cuisine}</h4>
+      <div className="details">
+        <div className="rating">{rating}</div>
+        <div className="delivery-time">{deliveryTime}</div>
+      </div>
+    </div>
+  );
+};
+-This is how we destructure the properties
+it means 
+const {resName, cuisine} = props
+-So its props
+-Lets see the Swiggy API calls there are lots of complex API call we will see if we see the swiggy API this concept is know as (config-driven-UI)
+-So what is the config-driven-UI it means we can render the UI based on the config data that is coming from backend 
+EX: If we see the swiggy offers there is different offers for the different location so the carosole also different for the different location so we can render the carousel based on the config data that is coming from backend location 
+-It simply means we can render the UI based on the config data that is coming from  (our ui will change based on data that is coming form backend)
+-So to render the data we have loop that 
+EX: const Body = () => {
+  return (
+    <div className="body">
+      <div className="search">Search</div>
+      <div className="resto-container">
+        {restaurantData.map((restaurant, index) => (
+          <RestaurantCard
+            key={index}
+            resName={restaurant.resName}
+            cuisine={restaurant.cuisine}
+            rating={restaurant.rating}
+            deliveryTime={restaurant.deliveryTime}
+            imageUrl={restaurant.imageUrl}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+like this as you can see there is index we have added if we loop the data we need to pass some unique key 
+EX: Suppose we have root element and we have child so what happen is react optimizes its render cycle so we need to uniquely represents out child because suppose a new restaurant comes in at the first place and we don't given the the id to the child then react will rerender all the cards. react does not know which card is new and which card is old so it will rerender all the cards. so to overcome this problem we have to give the unique key to the child element.
+-So as you can see in the code we have given the index as a key to the child element. But react say that never use the index as a key because it is not unique. so we have to use the id of the restaurant as a key.
+
+Episode 5:
+Here we are going to learn about the react hooks .
+-first we will clean our code now we have created everything in one file app.js but its hard ho maintain that file so we will create the separate file for the separate component.
+-We have Header.js, Footer.js, Body.js and App.js these file we have we can create the file name with .jsx extension it dosen't matter (Header.jsx, Footer.jsx, Body.jsx, App.jsx) but it is a good practice to create the file with .jsx extension.
+-If we are using the typescript then we have to create the file with .tsx extension. or ts extension
+-We have created the folder utils and we keep our constants in the utils folder. and all the hard coded data we keep in the utils folder.
+-So we have create the constants then i have to export it so we have 2 types of export one is named export and another is default export.
+1.export default <componentName> // This is default export 
+2.export const LOGO_URL = "https://i.ibb.co/0s3dJdP/logo192.png" // This is named export
+-So how we can import the named export so we need to do like 
+EX: import { LOGO_URL } from "./utils/constants"
+-This is how we can import the named export.
+-Now we will make our app dynamic by adding some features into it 
+-What is hooks? => A react hook is normal javascript function but it has some special features.
+-There are 3 important hooks in react
+1.useState() // This is used to manage the state in the react component.
+2.useEffect() // This is used to perform the side effects in the react component.
+3.useContext() // This is used to share the data between the react component.
+-Now we will make our app dynamic by adding some features into it 
+-We will add the search bar into our app.
+EX:   const [filteredData, setFilteredData] = useState(restaurantData);
+-This is how we can create the state variable in the react component. this is how we use the useState hook.
+-Whenever a state variable is update react re-render the component.
+-Reconciliation algorithm(React Filter)
+-we have res-container in that we have 7 res card and we have to filter the data based on the filter button we filter the top rated restaurants. then we got 3 cards that has top rating.
+-Virtual DOM => Virtual dom is representation of the real dom. It is a javascript object that represents the real dom. It is used to optimize the performance of the react app. It is used to compare the real dom with the virtual dom and find the difference between them. It is used to update the real dom with the difference.
+-So there is diff algorithm is there it will find the difference between the real dom and the virtual dom and update the real dom with the difference.
+
+
+Episode 6 :
+-What is Monolithic architecture => we have API , UI, Auth, DB, SMS code inside it so basically we have all the things inside it. it is not good for the scalability and maintainability.
+-Monolithic architecture is a software design where an entire application is built as a single, unified codebase. All components (UI, business logic, data) are combined and tightly coupled, leading to simple development and deployment for small applications. However, it can be challenging to scale, update, and maintain because changes affect the whole system, making it less flexible for larger projects compared to modular microservices architecture.
+-What is Microservices architecture => in the microservices architecture we have different services like API, UI, Auth, DB, SMS code. So we have different services for different things. It is good for the scalability and maintainability.
+-Microservice architecture is a software design approach where an application is built as a collection of small, independent services, each responsible for a specific function. These services communicate with each other through well-defined APIs and can be developed, deployed, and scaled independently. This design allows for better scalability, flexibility, and easier updates or maintenance since changes to one service do not directly impact others. Microservices are often used in larger, complex applications to improve development speed and resilience but can introduce challenges in terms of network communication and overall system management.
+-So now how we can fetch the data form backend so there are two approaches for this 
+1. As soon as the page load then we call the api and we wait for the data to come then we load the page there 
+2. As soon as the page load we just quickly render what ever is there. whatever is there we will just quickly render it 
+-In react we will always go with the second approach this is the better approach as soon as api update we will update our Ui too 
+-Now to use this we need to use the react hook called useeffect()
+-So this useEffect takes two arguments one is the function and the second is the dependency array.
+-So when that function will call that we pass as a argument to useEffect() and the second argument it is called after your component render 
+-As you can see here first the body is rendered and then the useEffect() is called and then the useEffect() is called and then the body is rendered again
+EX:  useEffect(() => { 
+      console.log("Use effect called"); 
+      }, []);
+      console.log("Body component rendered");     
+-So why we use useEffect() because we want to do some side effect like fetching data from the server or setting up a timer or subscribing to a channel or something like that. and it is helpful to implement the second approach 
+-Then we fetch the data in the useEffect()
+EX:const fetchSwiggyData = async () => {
+    try {
+      const response = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.07480&lng=72.88560&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      );
+      if (response.ok) {
+        const updatedSwiggyData = await response.json();
+        console.log(updatedSwiggyData); // Log the full response to inspect its structur
+        // Extracting the specific data you need (cards) from the API
+        const restaurants =
+          updatedSwiggyData?.data?.cards[0]?.card?.card?.gridElements
+            ?.infoWithStyle?.info || [];
+        setSwiggyData(restaurants);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+-So this is how we can fetch data from an API and then use that data to update the state in the useEffect() hook.
+-Now if we call the api but the api is taking some time to load the data to get the data then what people used to do is they show the loader but its not good user experiance the good user experiance is to show the shimmer UI read about this its a good practice. Instead of showing the loader we have to show the shimmer UI there 
+-Now lets create a shimmer UI 
+-We have created the shimmer UI and we show the cards on it 
+-Now we have to create a button if we hit the login button then we need to change to logout so how we can do that there
+EX:
+let btnName = "login";
+ <button
+      type="button"
+      class="button button3"
+      onClick={() => {
+      btnName = "logout";
+      console.log(btnName); 
+      }}
+></button>
+-But here we click on the button login button and if we click that button it will change to the logout but in our UI we cant see the logout because our UI is not updated there so to update that UI we need to refresh the page so that can be done using the useState() hook
+-So if we want to update it on UI we use the hook 
+EX: 
+ let [btnNameReact, setBtnNameReact] = useState("Login");
+  <button
+      type="button"
+      class="button button3"
+      onClick={() => {
+      setBtnNameReact("Logout");
+      console.log(setBtnNameReact);
+    }}
+  >
+  {btnNameReact}
+  </button>
+-useState this useState is a hook and it is used to update the UI it will take two parameter first one is the initial value and second one is the function which will be called when we click on the button and then on click of the button it will update the UI and we can see the header is updated to the logout
+-As soon as we click on the button it will render the whole Header component.
