@@ -409,6 +409,7 @@ EX:const fetchSwiggyData = async () => {
       console.error("Fetch error:", error);
     }
   };
+-? the question mark we have added that is optional chanining operator
 -So this is how we can fetch data from an API and then use that data to update the state in the useEffect() hook.
 -Now if we call the api but the api is taking some time to load the data to get the data then what people used to do is they show the loader but its not good user experiance the good user experiance is to show the shimmer UI read about this its a good practice. Instead of showing the loader we have to show the shimmer UI there 
 -Now lets create a shimmer UI 
@@ -440,3 +441,19 @@ EX:
   </button>
 -useState this useState is a hook and it is used to update the UI it will take two parameter first one is the initial value and second one is the function which will be called when we click on the button and then on click of the button it will update the UI and we can see the header is updated to the logout
 -As soon as we click on the button it will render the whole Header component.
+-Now we have to implement the search functionality so if we do the search it has to search for the restaurant 
+-  <input
+            type="text"
+            className="search-input"
+          placeholder="Search for restaurants"
+          value={searchText}
+          onChange={(event) => setSearchText(event.target.value,   console.log(searchText))
+        
+          }
+          />
+        <button type="btn" onClick={({
+        
+        })}>Search</button>
+-So this is our search box and the search button as we type some text then it will rerender our body component and it will show the restaurants which are matching with the search text so we type "A" also then it will again rerender our component.
+-Whenever the state variable updates then react trigger the Reconciliation cycle (re-render) the component.
+-So there is an interview question why react is fast - so the virtual dom is the reason behind it. there is react fiber the new Reconciliation algorithm which find out the difference between the old dom and the new dom and then it will only update the changed dom. and update the dom only required and the portion of the dom only render 
