@@ -457,3 +457,97 @@ EX:
 -So this is our search box and the search button as we type some text then it will rerender our body component and it will show the restaurants which are matching with the search text so we type "A" also then it will again rerender our component.
 -Whenever the state variable updates then react trigger the Reconciliation cycle (re-render) the component.
 -So there is an interview question why react is fast - so the virtual dom is the reason behind it. there is react fiber the new Reconciliation algorithm which find out the difference between the old dom and the new dom and then it will only update the changed dom. and update the dom only required and the portion of the dom only render 
+
+Episode 7 :
+-Now we will see how we can do the routing in our react application. so we will use react-router-dom package for routing in our react application.
+-If there is no dependencies array = use effect called on every render.
+-If dependency array is empty = [] => useEffect is called on initial render only(just once).
+-If dependency array is [btnNameReact] => called everytime btnNameReact is updated.
+-Now lets see the react router library. so we will use the <BrowserRouter> and <Routes> and <Route> components for routing in our react application.
+-So to install the react-router-dom package we will use the command npm install react-router-dom@6.
+-You can check this site it contain all the useful things for the routing = https://reactrouter.com/ 
+-To do the routing we need to create the routing configuration createBrowserRouter and Routes and Route components.
+-To do the routing configuration we need to provide the 
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element:<App/>
+  },
+  {
+    path: "/about",
+    element:<About/>
+  },
+  {
+    path: "/contact",
+  }
+]);
+-React-router-dom gives you the access 
+import { useRouteError } from "react-router-dom"; using this hook we can give the more details of the error using this hook we can tell the specific details to the user.
+Error Page: 
+const Error = () => {
+    const err = useRouteError();
+    console.log(err.error.message);
+    console.log(err.error.stack)
+  return (
+    <div>
+      {" "}
+      <h1 className="ErrorCss">Oops!! 🚀</h1>
+      <h2 className="ErrorCss">
+        Something went wrong in the routing please check the routing URL
+      </h2>
+      <h3 className="ErrorClassNew">{err.error.message}</h3>
+      <h5 className="ErrorClassNew">{err.error.stack}</h5>
+    </div>
+  );
+};
+export default Error;
+-So this is our error component and we are using the useRouteError hook to get the error details and we are printing the error details in the console and also in the UI.
+-Ex: {
+    path: "/",
+    element: <AppLayout />,
+    errorElement: <Error />, // here we render the error page when the routes failed then this page will show there.
+    children: [
+      { path: "/", element: <Body /> },
+      { path: "/data", element: <DataPage /> },
+      { path: "/about", element: <About /> },
+      { path: "/contact", element: <Contact /> },
+    ],
+  },
+-Now if we go to the any page in our routing we need one header component is fix there in that page like - 
+<Header />
+this header we need Fixed
+<Footer />
+-So this header and footer we need to fix in all pages 
+EX: 
+const AppLayout = () => (
+  <div>
+    <div className="App">
+      <Header />
+      <Outlet />
+      <Footer />
+    </div> 
+  </div>
+);
+-So this outlet will do render the children component as we route and it will keep header and footer there 
+export const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    errorElement: <Error />,
+    children: [
+      { path: "/", element: <Body /> },
+      { path: "/data", element: <DataPage /> },
+      { path: "/about", element: <About /> },
+      { path: "/contact", element: <Contact /> },
+    ],
+  },
+]);
+-So this is the example of how we can create the children route and we load the children route inside the Outlet.
+-In react how we can route to the different page if we use the <a href ="/about"> tag we can route to the different page but this is not the best way to do this way the page is load if we route so we can use the Link tag to do this.
+-The react application is SPA (Single page application) where app.js is our single page and we just rendering the other component there in that page. like wise
+-In react there are two types of routing.
+1. Client Side Routing - Here in react we use the client side routing and it will not load the page it will just render the component inside the page so it will not load the page so its client side routing.
+2. Server Side Routing - If we make the api call then the aboutUs page is load data is coming form server in the network call we will see that data is coming from server so its server side routing.
+-Client Side Routing is the routing that is done on the client side and it is done using the Link tag and it is done using the react-router-dom library.
+-Server Side Routing is the routing that is done on the server side and it is done using the express library and it is done using the react-router library.
