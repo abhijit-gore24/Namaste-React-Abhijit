@@ -551,3 +551,8 @@ export const appRouter = createBrowserRouter([
 2. Server Side Routing - If we make the api call then the aboutUs page is load data is coming form server in the network call we will see that data is coming from server so its server side routing.
 -Client Side Routing is the routing that is done on the client side and it is done using the Link tag and it is done using the react-router-dom library.
 -Server Side Routing is the routing that is done on the server side and it is done using the express library and it is done using the react-router library.
+-To route based on the resId then we need to capture the resId form the params so we have one hook to capture it. ie useParams hook. 
+EX:
+import { useParams } from "react-router-dom";
+const { resId } = useParams();
+console.log("This is the resId",resId)
