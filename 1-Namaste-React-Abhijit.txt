@@ -930,4 +930,115 @@ const withPromotedLabel = (RestaurantCard) => {
   };
 };
 -withPromotedLabel is our higher order component and RestaurantCard is the component that we are passing to it and now it will return a new component with the promoted label
--We see the proper debugging  in react we will use the react developer tools
+-We see the proper debugging  in react we will use the react developer tools.
+-Control and uncontrolled component in react 
+-If we want to access data from any level so we have react Context. it is kind of global state management in react. so anyone can access the data from anywhere in the component tree.
+-If we want to use out Context in any component we have to use the useContext hook.
+-If we want to use data at multiple places in our app we have to use the context.
+EX:
+import { createContext } from "react";
+
+const UserContext = createContext({
+    loggedInUser: "Abhijit",
+});
+export default UserContext;
+
+-This is how we created the context lets see how we can use in the component.
+EX:
+import {useContext} from "react";
+import UserContext from "../utils/UserContext";
+const {loggedInUser} = useContext(UserContext); 
+console.log({ loggedInUser });
+<li className="loggedInUser">{ loggedInUser}</li>
+-As you can see this is how we can use the context in the component.
+-In class based component we do not have hooks so we cannot access that. so if we dont have hooks how we can access that in class based component.
+-We have to use the context.Consumer in the class based component.
+EX:
+import { UserContext } from "../utils/UserContext";
+import React, { Component } from "react";
+
+export default class Header extends Component {
+  render() {
+    return (
+      <UserContext.Consumer>
+        {(user) => (
+          <div>
+            <h1>Header</h1>
+            <li className="loggedInUser">{user.loggedInUser}</li>
+          </div>
+        )}
+      </UserContext.Consumer>
+    );
+  }
+}
+-As you can see we use the <UserContext.Consumer> and we pass the function as a child to it and we get the user object as a parameter and we can access the loggedInUser from it.
+-Suppose if the use is loggedInUser then how we can update that if we get the data the name of the logged in user how we can display that over there.
+EX:
+const AppLayout = () => {
+  const [userName, setUserName] = useState();
+  useEffect(() => {
+    const data = {
+      name: "Abhijit Gore",
+    };
+    setUserName(data.name);
+  }, []);
+  return (
+    <UserContext.Provider value={{ loggedInUser: userName }}>
+      <div>
+        <div className="App">
+          <Header />
+          {/** If path =/ */}
+          {/* <Body /> */}
+          {/** If path = /about */}
+          {/* <About /> */}
+          {/** If path = /contact */}
+          {/* <Contact/> */}
+          <Outlet />
+          <Footer />
+        </div>
+      </div>
+    </UserContext.Provider>
+  );
+}
+We can do this 
+
+Episode 12:
+-Now we will see the redux implementation.
+-Its a state management library. it has 
+1.Store
+2.Action
+3.Reducer
+4.Provider
+
+What is difference between 
+1.onClick = {handleClick}
+2.onClick = {() => handleClick(item)}
+3.onClick = {handleClick(item)}
+
+RTK - Redux Toolkit => Either mutate the state or return the new state.
+
+Episode 13:
+
+-React testing - Jest is the react testing library. It is used to test the react components.
+-here we installed jest 
+npm install --save-dev jest
+-Now we need to install using babel dependencies
+npm install --save-dev babel-jest @babel/core @babel/preset-env.
+-So this is how we can configure the babel into our application.
+-here we configure the babel into our application.
+EX:
+babel.config.js:
+module.exports = {
+  presets: [["@babel/preset-env", { targets: { node: "current" } }]],
+};
+
+this is how we configure the babel into our application.
+-Configure Babel 
+-Configure Parcel config file to disable default babel configuration.
+
+-Now to run the test we need to run the command
+npm run test
+-Jest configuration 
+-npx jest --init (basically it will initialize the jest configuration)
+-so what is this __ = dunder tests
+-Install @babel/preset-react  - to make JSX works in test cases 
